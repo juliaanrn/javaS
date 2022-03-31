@@ -1,30 +1,10 @@
-const TITLE_URL = 'ecommerceComunicacion';
-const nombre = 'Manuales de Comunicaciones'; agregarAlCarrito('Manual de Comunicacion');
-
-function agregarAlCarrito(producto) {
-    console.log(producto)
-    const textoAMostrar = `Agregas al carrito ${producto.titulo} ${producto.precio}`;
-    console.log(textoAMostrar);
-}
+const h3 = document.getElementById("juli")
+let cantidades = document.getElementsByClassName("cantidades")
+let valorCantidadExterna ;
+let valorCantidadInterna ;
+let valorCantidadEstrategica ;
 
 
-const producto1 = {
-    id: 1,
-    nombre: "Manual de Comunicación Interna",
-    precio: 1500
-}
-
-const producto2 = {
-    id: 2,
-    nombre: "Manual de Comunicación Externa",
-    precio: 2500
-}
-
-const producto3 = {
-    id: 3,
-    nombre: "Manual de Comunicación Estrategica",
-    precio: 4500
-}
 
 const array = [
     {
@@ -44,49 +24,28 @@ const array = [
     }
 ]
 
-document.write(`<h2>
-Adquiera nuestros productos
-</h2>`)
-
-for (element of array)
-
-    document.write(`
-<h3>${element.nombre}</h3>
-<p>${element.precio}</p>
-<button>Comprar este producto</button>
-`)
-
+function capturarCantidadExterna (e) {
+    valorCantidadExterna = e.target.value
+    valorCantidadExterna = parseInt(valorCantidadExterna)
+}
+function capturarCantidadInterna (e) {
+    valorCantidadInterna = e.target.value
+}
+function capturarCantidadEstrategica (e) {
+    valorCantidadEstrategica = e.target.value
+}
 
 
-let comprar;
-let total = 0;
 
-do {
-    const productoSeleccionado = prompt(`
-Seleccione el producto que desea comprar 
-1. ${producto1.nombre} $${producto1.precio} 
-2. ${producto2.nombre} $${producto2.precio}
-3. ${producto1.nombre} $${producto3.precio}
-`)
+function comprar (){
+    const msg = document.querySelector("#msgCompra")
+    msg.innerHTML = `Usted adquirió ${valorCantidadInterna} Manuales de Comunicación Interna por ${valorCantidadInterna * array[0].precio} 
+    <br> Usted adquirió ${valorCantidadExterna} Manuales de Comunicación Externa por ${valorCantidadExterna * array[1].precio}
+    <br> Usted adquirió ${valorCantidadEstrategica} Manuales de Comunicación Estratégica por ${valorCantidadEstrategica * array[2].precio}`
+}
 
-    switch (productoSeleccionado) {
-        case "1":
-            alert(`Usted ha agregado ${producto1.nombre} al carrito`);
-            total += producto1.precio;
-            break;
-        case "2":
-            alert(`Usted ha agregado ${producto2.nombre} al carrito`);
-            total += producto2.precio;
-            break;
-        case "3":
-            alert(`Usted ha agregado ${producto3.nombre} al carrito`);
-            total += producto3.precio;
-            break;
-        default:
-            alert("No existe tal opción");
-            break;
-    }
-    comprar = prompt("¿Usted desea comprar mas? s/n")
-    alert("El total adquirido es $ " + total);
-} while (comprar !== "n")
 
+
+localStorage.setItem("productos",JSON.stringify(array)) // Guardar un objeto 
+const array2 = JSON.parse(localStorage.getItem("productos"))
+console.log(array2)
